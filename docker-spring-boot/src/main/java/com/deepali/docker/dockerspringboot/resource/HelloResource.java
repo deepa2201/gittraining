@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HelloResource {
 	@RequestMapping("/rest/docker/hello")
 	public String hello() {
-		return "Hello Youtube";
+		return "Hello, I am copied via Ansible server!!! ";
 	}
 }
