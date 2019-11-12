@@ -4,8 +4,7 @@ pipeline {
     stages {
         stage('github checkout') {
             steps {
-                powershell label: '', script: '''cd docker-spring-boot
-                   mvn clean install package'''
+                git 'https://github.com/deepa2201/gittraining.git'
             }
         }
         stage('Build') {
@@ -14,9 +13,9 @@ pipeline {
                 mvn clean install package'''
             }
         }
-        stage('Deploy') {
+        stage('Copy war file and deploy') {
             steps {
-                echo 'Deploying....'
+               sshPublisher(publishers: [sshPublisherDesc(configName: 'ansibleserver', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '//opt/playbooks', remoteDirectorySDF: false, removePrefix: '', sourceFiles: 'docker-spring-boot/target/docker-spring-boot.war')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false), sshPublisherDesc(configName: 'ansibleserver', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'ansible-playbook /opt/playbooks/copyfile.yml', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
             }
         }
     }
