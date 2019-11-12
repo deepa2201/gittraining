@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HelloResource {
 	@RequestMapping("/rest/docker/hello")
 	public String hello() {
-		return "Hello, via Docker this time!!! ";
+		return "Hello, via Jenkinsfile pipeline this time!!! ";
 	}
 }
