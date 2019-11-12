@@ -2,14 +2,16 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('github checkout') {
             steps {
-                echo 'Building..'
+                powershell label: '', script: '''cd docker-spring-boot
+                   mvn clean install package'''
             }
         }
-        stage('Test') {
+        stage('Build') {
             steps {
-                echo 'Testing..'
+                sh label: '', script: '''cd docker_spring_boot
+                mvn clean install package'''
             }
         }
         stage('Deploy') {
