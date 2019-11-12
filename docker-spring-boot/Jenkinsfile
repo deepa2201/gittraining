@@ -2,11 +2,6 @@ pipeline {
     agent any
 
     stages {
-        stage('github checkout') {
-            steps {
-                git 'https://github.com/deepa2201/gittraining.git'
-            }
-        }
         stage('Build') {
             steps {
                 sh label: '', script: '''cd docker_spring_boot
